@@ -55,7 +55,7 @@ def predict():
     
     c=os.getcwd()
            
-    subprocess.call(['ffmpeg', '-i', c+'downloaded.mp3',
+    subprocess.call(['ffmpeg', '-i', c+'/downloaded.mp3',
                    'converted.wav'])
 
    
