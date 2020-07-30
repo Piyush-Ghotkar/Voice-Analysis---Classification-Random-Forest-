@@ -53,7 +53,7 @@ def predict():
     except:
         print("Download Failed")
     
-    subprocess.call(['ffmpeg', '-i', 'download.mp3',
+    subprocess.call(['ffmpeg', '-i', 'downloaded.mp3',
                    'converted.wav'])
 
    
