@@ -53,14 +53,16 @@ def predict():
     except:
         print("Download Failed")
     
-    subprocess.call(['ffmpeg', '-i', 'downloaded.mp3',
+     c=os.getcwd()
+           
+    subprocess.call(['ffmpeg', '-i', c+'downloaded.mp3',
                    'converted.wav'])
 
    
     print("Successfully Converted .mp3 into .wav")
     
     p="converted"
-    c=os.getcwd()
+   
 
     ar_rate=articulation_rate(p,c)
     rate_sph=rate_of_speech(p,c)
