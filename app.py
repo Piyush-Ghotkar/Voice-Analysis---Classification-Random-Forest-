@@ -46,7 +46,7 @@ def predict():
     lang=data["language"]
     filename=data["filename"]
     
-    storage_path="Audio/"+str(filename)+".mp3"
+    storage_path="audio/"+str(filename)+".mp3"
     try:
         storage = firebase.storage()
         storage.child(storage_path).download("downloaded.mp3")
