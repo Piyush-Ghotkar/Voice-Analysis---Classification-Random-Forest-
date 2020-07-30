@@ -1,4 +1,3 @@
-
 import pickle
 from flask import Flask, jsonify
 import pyrebase
@@ -15,6 +14,7 @@ import os
 import json
 import urllib
 import flask
+import subprocess
 
 
 
@@ -46,15 +46,20 @@ def predict():
     lang=data["language"]
     filename=data["filename"]
     
-    storage_path="Audio/"+str(filename)+".wav"
+    storage_path="Audio/"+str(filename)+".mp3"
     try:
         storage = firebase.storage()
-        storage.child(storage_path).download("downloaded.wav")
+        storage.child(storage_path).download("downloaded.mp3")
     except:
         print("Download Failed")
     
+    subprocess.call(['ffmpeg', '-i', 'download.mp3',
+                   'converted.wav'])
+
+   
+    print("Successfully Converted .mp3 into .wav")
     
-    p="downloaded"
+    p="converted"
     c=os.getcwd()
 
     ar_rate=articulation_rate(p,c)
@@ -80,7 +85,7 @@ def predict():
              'original duration': org_dur}
     json_data = json.dumps(output).encode()
     
-    request = urllib.request.Request("https://healdon-916dd.firebaseio.com/u_id/"+u_id+"/test/voice.json", data=json_data, method="PATCH")
+    request = urllib.request.Request("https://healdon-916dd.firebaseio.com/users/"+u_id+"/test/voice.json", data=json_data, method="PATCH")
     try:
         loader = urllib.request.urlopen(request)
     except urllib.error.URLError as e:
@@ -179,6 +184,3 @@ def original_duration(m,p):
 
 if __name__ == '__main__':
     app.run(port = 5000, debug=True,use_reloader=False)
-    
-    
-    
