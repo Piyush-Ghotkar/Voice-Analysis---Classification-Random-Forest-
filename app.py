@@ -79,7 +79,7 @@ def predict():
     
     
 
-    output = {'voice_result':str(int(result[0])),
+    output = {'model_prediction':str(int(result[0])),
               'articulation rate': str(ar_rate),
              'rate of speech': str(rate_sph),
              'number of pauses': str(no_pause),
