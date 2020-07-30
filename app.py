@@ -79,12 +79,12 @@ def predict():
     
     
 
-    output = {'voice_result':int(result[0]),
-              'articulation rate': ar_rate,
-             'rate of speech': rate_sph,
-             'number of pauses': no_pause,
-             'speking duration':speak_dur,
-             'original duration': org_dur}
+    output = {'voice_result':str(int(result[0])),
+              'articulation rate': str(ar_rate),
+             'rate of speech': str(rate_sph),
+             'number of pauses': str(no_pause),
+             'speking duration':str(speak_dur),
+             'original duration': str(org_dur)}
     json_data = json.dumps(output).encode()
     
     request = urllib.request.Request("https://healdon-916dd.firebaseio.com/users/"+u_id+"/test/voice.json", data=json_data, method="PATCH")
