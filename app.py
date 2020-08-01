@@ -1,5 +1,5 @@
 import pickle
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 import pyrebase
 import parselmouth
 from parselmouth.praat import call, run_file
@@ -41,7 +41,7 @@ app = Flask(__name__)
 def predict():
     print("server called")
     # get data
-    data = flask.request.get_json(force=True)
+    data = request.get_json(force=True)
     
     print("data=",data)
     
@@ -101,9 +101,9 @@ def predict():
              'original duration': str(org_dur)}
     json_data = json.dumps(output).encode()
     
-    request = urllib.request.Request("https://healdon-916dd.firebaseio.com/users/"+u_id+"/test/voice.json", data=json_data, method="PATCH")
+    request1 = urllib.request.Request("https://healdon-916dd.firebaseio.com/users/"+u_id+"/test/voice.json", data=json_data, method="PATCH")
     try:
-        loader = urllib.request.urlopen(request)
+        loader = urllib.request.urlopen(request1)
     except urllib.error.URLError as e:
         message = json.loads(e.read())
         
