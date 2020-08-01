@@ -42,7 +42,7 @@ def predict():
     
     # get data
     data = flask.request.get_json(force=True)
-    u_id=data["u_id"]
+    u_id="Utkarsh5470"
     lang=data["language"]
     filename=data["filename"]
     
