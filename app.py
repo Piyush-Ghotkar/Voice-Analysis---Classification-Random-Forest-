@@ -39,7 +39,7 @@ app = Flask(__name__)
 @app.route('/', methods=['POST'])
 
 def predict():
-    
+    pring("server called")
     # get data
     data = flask.request.get_json(force=True)
     u_id="Utkarsh5470"
