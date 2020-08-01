@@ -43,9 +43,11 @@ def predict():
     # get data
     data = flask.request.get_json(force=True)
     
-    print("type of data",type(data))
+    print("data=",data)
+    
     
     data.update((x, [y]) for x, y in data.items())
+    print("type of data",type(data))
     data_df = pd.DataFrame.from_dict(data)
     
     print("data_df=",data_df)
