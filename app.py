@@ -42,12 +42,20 @@ def predict():
     print("server called")
     # get data
     data = flask.request.get_json(force=True)
+    
+    print("type of data",type(data))
+    
     data.update((x, [y]) for x, y in data.items())
     data_df = pd.DataFrame.from_dict(data)
     
+    print("data_df=",data_df)
+    
+    
     u_id="Utkarsh5470" 
-    lang=data_df["language"]
-    filename=data_df["filename"]
+    #lang=data_df["language"]
+    #filename=data_df["filename"]
+    lang=1
+    filename=555
     print("Data retrived")
     
     storage_path="audio/"+str(filename)+".mp3"
