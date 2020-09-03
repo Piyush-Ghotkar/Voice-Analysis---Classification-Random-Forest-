@@ -1,5 +1,5 @@
 import pickle
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 import pyrebase
 import parselmouth
 from parselmouth.praat import call, run_file
@@ -39,23 +39,37 @@ app = Flask(__name__)
 @app.route('/', methods=['POST'])
 
 def predict():
-    
+    print("server called")
     # get data
-    data = flask.request.get_json(force=True)
-    u_id=data["u_id"]
-    lang=data["language"]
-    filename=data["filename"]
+    data = request.get_json(force=True)
+    
+    print("data=",data)
+    
+    
+    data.update((x, [y]) for x, y in data.items())
+    print("type of data",type(data))
+    data_df = pd.DataFrame.from_dict(data)
+    
+    print("data_df=",data_df)
+    
+    
+    #u_id="Utkarsh5470" 
+    u_id=str(data_df["u_id"].iloc[0])
+    lang=data_df["language"].iloc[0]
+    filename=data_df["filename"].iloc[0]
+ 
+    print("Data retrived")
     
     storage_path="audio/"+str(filename)+".mp3"
     try:
         storage = firebase.storage()
-        storage.child(storage_path).download("downloaded.mp3")
+        storage.child(storage_path).download("downloaded1.mp3")
     except:
         print("Download Failed")
     
     c=os.getcwd()
            
-    subprocess.call(['ffmpeg', '-i', c+'/downloaded.mp3',
+    subprocess.call(['ffmpeg', '-y','-i', c+'/downloaded1.mp3',
                    'converted.wav'])
 
    
@@ -87,9 +101,9 @@ def predict():
              'original duration': str(org_dur)}
     json_data = json.dumps(output).encode()
     
-    request = urllib.request.Request("https://healdon-916dd.firebaseio.com/users/"+u_id+"/test/voice.json", data=json_data, method="PATCH")
+    request1 = urllib.request.Request("https://healdon-916dd.firebaseio.com/users/"+u_id+"/test/voice.json", data=json_data, method="PATCH")
     try:
-        loader = urllib.request.urlopen(request)
+        loader = urllib.request.urlopen(request1)
     except urllib.error.URLError as e:
         message = json.loads(e.read())
         
