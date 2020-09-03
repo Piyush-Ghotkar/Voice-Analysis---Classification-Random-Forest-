@@ -53,11 +53,11 @@ def predict():
     print("data_df=",data_df)
     
     
-    u_id="Utkarsh5470" 
-    #lang=data_df["language"]
-    #filename=data_df["filename"]
-    lang=1
-    filename=555
+    #u_id="Utkarsh5470" 
+    u_id=data_df["u_id"]
+    lang=data_df["language"]
+    filename=data_df["filename"]
+ 
     print("Data retrived")
     
     storage_path="audio/"+str(filename)+".mp3"
@@ -69,7 +69,7 @@ def predict():
     
     c=os.getcwd()
            
-    subprocess.call(['ffmpeg', '-i', c+'/downloaded.mp3',
+    subprocess.call(['ffmpeg', '-y','-i', c+'/downloaded.mp3',
                    'converted.wav'])
 
    
