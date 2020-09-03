@@ -54,7 +54,7 @@ def predict():
     
     
     #u_id="Utkarsh5470" 
-    u_id=data_df["u_id"]
+    u_id=str(data_df["u_id"])
     lang=data_df["language"]
     filename=data_df["filename"]
  
@@ -63,13 +63,13 @@ def predict():
     storage_path="audio/"+str(filename)+".mp3"
     try:
         storage = firebase.storage()
-        storage.child(storage_path).download("downloaded.mp3")
+        storage.child(storage_path).download("downloaded1.mp3")
     except:
         print("Download Failed")
     
     c=os.getcwd()
            
-    subprocess.call(['ffmpeg', '-y','-i', c+'/downloaded.mp3',
+    subprocess.call(['ffmpeg', '-i', c+'/downloaded1.mp3',
                    'converted.wav'])
 
    
