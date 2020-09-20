@@ -57,7 +57,8 @@ def predict():
     #u_id="Utkarsh5470" 
     u_id=str(data_df["u_id"].iloc[0])
     lang=data_df["language"].iloc[0]
-    filename=data_df["filename"].iloc[0]
+    #filename=data_df["filename"].iloc[0]
+    filename="proper_format" #remove this when audio format issue is solved
  
     print("Data retrived")
     
